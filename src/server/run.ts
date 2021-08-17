@@ -3,7 +3,7 @@ import path from 'path'
 import express from 'express'
 import socketIO from 'socket.io'
 import { Telegraf } from 'telegraf'
-import { withLabLogic } from './bot'
+import { withLabLogic, withStageSample } from './bot'
 
 require('dotenv').config({ path: path.join(__dirname, '.env') })
 
@@ -36,6 +36,7 @@ class App {
     const bot = new Telegraf(TG_BOT_TOKEN)
 
     withLabLogic(bot)
+    withStageSample(bot)
     // Others...
 
     bot.launch()

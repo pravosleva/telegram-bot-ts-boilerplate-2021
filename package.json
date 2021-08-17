@@ -1,0 +1,45 @@
+{
+  "name": "pravosleva-bot-2021",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server-dist/run.js",
+  "scripts": {
+    "deploy:prod:restart-bot": "yarn build:prod && deploy-app -d prod:restart-bot",
+    "deploy:prod:copy-only": "yarn build:prod && deploy-app -d prod:copy-only",
+    "start:pm2": "pm2 start npm --name pravosleva-bot-2021 -- run start:prod",
+    "dev": "yarn build:dev && NODE_ENV=development node --max-old-space-size=1024 server-dist/run.js",
+    "start:prod": "NODE_ENV=production node --max-old-space-size=1024 server-dist/run.js",
+    "build:prod": "yarn cleanup:server-dist && yarn transpile-server:prod && yarn quaint-express-env-copy:prod",
+    "build:dev": "yarn cleanup:server-dist && yarn transpile-server:dev && yarn quaint-express-env-copy:dev",
+    "quaint-express-env-copy:dev": "cp .env.dev server-dist/.env",
+    "quaint-express-env-copy:prod": "cp .env.prod server-dist/.env",
+    "transpile-server:prod": "tsc -p ./src/server && yarn quaint-express-env-copy:prod",
+    "transpile-server:dev": "tsc -p ./src/server && yarn quaint-express-env-copy:dev",
+    "cleanup:server-dist": "rm -rf ./server-dist/* !./server-dist/.gitkeep",
+    "lint": "eslint --debug src/**/*.ts",
+    "lint:write": "eslint src/**/*.ts --fix",
+    "format": "prettier --write \"**/*.{js,ts,tsx}\" !.next !components"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/node": "^16.6.1",
+    "deploy-app": "^1.0.3",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-typescript-prettier": "^4.2.0",
+    "eslint-config-node": "^4.1.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "prettier": "^2.3.2",
+    "typescript": "^4.3.5"
+  },
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "socket.io": "^4.1.3",
+    "telegraf": "3.38"
+  }
+}

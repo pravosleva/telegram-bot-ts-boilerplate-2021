@@ -1,0 +1,6 @@
+node_modules
+server-dist/*
+!server-dist/.gitkeep
+.env*
+!.env.example
+deploy-app-config.json

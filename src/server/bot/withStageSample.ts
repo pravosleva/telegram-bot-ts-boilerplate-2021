@@ -1,4 +1,4 @@
-import { Markup, session, BaseScene, Stage } from 'telegraf'
+import { Markup, BaseScene, Stage } from 'telegraf'
 
 // NOTE: https://github.com/LetItCode/telegraf
 
@@ -33,8 +33,6 @@ step2Scene.on('text', (ctx: any) => {
     company: ctx.scene.state.company,
     text: ctx.message.text,
   })
-
-  // return ctx.scene.leave()
 })
 step2Scene.leave((ctx) => ctx.replyWithMarkdown('_Step 2: Exit (its ok)_'))
 
@@ -73,8 +71,6 @@ const stage = new Stage([step1Scene, step2Scene, step3Scene])
 stage.hears('exit', (ctx) => ctx.scene.leave())
 
 export const withStageSample = (bot: any) => {
-  bot.use(session())
-
   bot.use(stage.middleware())
 
   bot.command('stage_go', (ctx) => {

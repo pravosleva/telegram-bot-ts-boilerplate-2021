@@ -9,6 +9,9 @@
     "baseUrl": "../",
     "sourceMap": true,
     "esModuleInterop": true,
+    "paths": {
+      "~/*": ["./*"]
+    }
   },
   "include": [
     "**/*.ts",

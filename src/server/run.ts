@@ -1,20 +1,18 @@
+/* eslint-disable node/no-missing-require */
 import http from 'http'
 import express, {
   Request as IRequest,
   Response as IResponse,
   NextFunction as INextFunction,
 } from 'express'
-import { withLabLogic, withStageSample } from './bot'
+import path from 'path'
 
-const moduleAlias = require('module-alias')
-const path = require('path')
-
+require('module-alias')(path.join(__dirname, '../', 'package.json'))
 require('dotenv').config({ path: path.join(__dirname, '.env') })
-
-moduleAlias(path.join(__dirname, '../', 'package.json'))
 
 const socketIO = require('socket.io')
 const { Telegraf, session } = require('telegraf')
+const { withLabLogic, withStageSample } = require('./bot')
 
 const isDev: boolean = process.env.NODE_ENV === 'development'
 const PORT: number = process.env.PORT ? Number(process.env.PORT) : 3000
